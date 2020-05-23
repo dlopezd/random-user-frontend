@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useContext} from 'react';
+import { Switch, Route, withRouter } from 'react-router-dom'
 
-function App() {
+import { AuthContext } from '../context/auth-context';
+
+import Content from './Content'
+import NavBar from './NavBar'
+import Login from './Login'
+import Home from './Home';
+
+const App = _ => {
+  const authContext = useContext(AuthContext)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <NavBar />
+      <Switch>
+        <Route exact path='/login' component={Login} />
+        <Route exact path='/' component={authContext.isAuth ? Content : Home}/>
+      </Switch>
+    </>
   );
 }
 
-export default App;
+export default withRouter(App);
