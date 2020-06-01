@@ -36,7 +36,7 @@ const AuthContextProvider = props => {
             });
 
             setEmail(email);
-            setToken(response.idToken);
+            setToken(response.data.idToken);
             setIsAuthenticated(true);
             setError('')
             return true;
@@ -56,7 +56,12 @@ const AuthContextProvider = props => {
 
     return (
         <AuthContext.Provider
-            value={{ login: loginHandler, logout: logoutHandler, isAuth: isAuthenticated, token: token, error: error }}>
+            value={{ 
+                login: loginHandler, 
+                logout: logoutHandler, 
+                isAuth: isAuthenticated, 
+                token: token, 
+                error: error }}>
             {props.children}
         </AuthContext.Provider>
     );
